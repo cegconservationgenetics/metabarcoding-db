@@ -23,9 +23,91 @@ body{
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
 /* header */
-.site-header{background:#123342;color:#fff;padding:22px 0 20px}
-.site-header h1{margin:0;font-size:22px;font-weight:600;letter-spacing:.2px}
-.site-header .sub{margin:5px 0 0;font-size:13px;color:#a9c2ce}
+.site-header{
+  background:#123342;
+  color:#fff;
+  padding:22px 0 20px;
+}
+
+.site-header h1{
+  margin:0;
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:.2px;
+}
+
+.site-header .sub{
+  margin:5px 0 0;
+  font-size:13px;
+  color:#a9c2ce;
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:32px;
+}
+
+.header-text{
+  flex:1;
+  min-width:0;
+}
+
+.header-logos{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:14px;
+  flex-shrink:0;
+}
+
+.header-logos img{
+  width:auto;
+  object-fit:contain;
+}
+
+/* Individual logo sizes */
+.header-logos img:nth-child(1){
+  height:38px;
+}
+
+.header-logos img:nth-child(2){
+  height:42px;
+}
+
+.header-logos img:nth-child(3){
+  height:36px;
+}
+
+/* Mobile */
+@media(max-width:700px){
+
+  .header-inner{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
+
+  .header-logos{
+    width:100%;
+    justify-content:flex-start;
+    gap:12px;
+  }
+
+  .header-logos img:nth-child(1){
+    height:32px;
+  }
+
+  .header-logos img:nth-child(2){
+    height:34px;
+  }
+
+  .header-logos img:nth-child(3){
+    height:30px;
+  }
+
+}
 
 /* tabs */
 .tabs{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
