@@ -24,7 +24,7 @@ body{
 
 /* header */
 .site-header{
-  background:#123342;
+  background:hsl(199, 100%, 84%);
   color:#fff;
   padding:22px 0 20px;
 }
@@ -64,7 +64,6 @@ body{
 
 .header-logos img{
   width:auto;
-  background:#c9e5ff;
   object-fit:contain;
   
 }
