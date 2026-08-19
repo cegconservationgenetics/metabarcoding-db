@@ -24,7 +24,7 @@ body{
 
 /* header */
 .site-header{
-  background:#94b4c3;
+  background:#94b4c3 !important;
   color:#000000;
   padding:22px 0 20px;
 }
