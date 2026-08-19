@@ -65,19 +65,22 @@ body{
 .header-logos img{
   width:auto;
   object-fit:contain;
+  background:#fff;
+  padding:5px 8px;
+  border-radius:6px;
 }
 
 /* Individual logo sizes */
 .header-logos img:nth-child(1){
-  height:38px;
+  height:45px;
 }
 
 .header-logos img:nth-child(2){
-  height:42px;
+  height:45px;
 }
 
 .header-logos img:nth-child(3){
-  height:36px;
+  height:45px;
 }
 
 /* Mobile */
