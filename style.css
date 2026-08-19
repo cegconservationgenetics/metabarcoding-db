@@ -24,8 +24,8 @@ body{
 
 /* header */
 .site-header{
-  background:#94b4c3 !important;
-  color:#000000;
+  background:#88b3c7 !important;
+  color:#000000 !important;
   padding:22px 0 20px;
 }
 
@@ -39,7 +39,7 @@ body{
 .site-header .sub{
   margin:5px 0 0;
   font-size:13px;
-  color:#000000;
+  color:#000000 !important;
 }
 
 .header-inner{
@@ -69,15 +69,15 @@ body{
 
 /* Individual logo sizes */
 .header-logos img:nth-child(1){
-  height:80px;
+  height:100px;
 }
 
 .header-logos img:nth-child(2){
-  height:80px;
+  height:100px;
 }
 
 .header-logos img:nth-child(3){
-  height:80px;
+  height:100px;
 }
 
 /* Mobile */
