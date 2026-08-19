@@ -1,7 +1,7 @@
 :root{
   --bg:#f6f7f9;
   --panel:#ffffff;
-  --ink:#bcd7f2;
+  --ink:#1b2733;
   --muted:#63707e;
   --line:#dfe4ea;
   --accent:#1f6f8b;
@@ -64,20 +64,22 @@ body{
 
 .header-logos img{
   width:auto;
+  background:#c9e5ff;
   object-fit:contain;
+  
 }
 
 /* Individual logo sizes */
 .header-logos img:nth-child(1){
-  height:50px;
+  height:80px;
 }
 
 .header-logos img:nth-child(2){
-  height:50px;
+  height:80px;
 }
 
 .header-logos img:nth-child(3){
-  height:50px;
+  height:80px;
 }
 
 /* Mobile */
