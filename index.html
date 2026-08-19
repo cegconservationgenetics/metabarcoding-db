@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Curated Primer Database Explorer</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <h1>Curated Primer Database Explorer</h1>
+    <p class="sub">DNA Metabarcoding &bull; Otter Diet Research &bull; Conservation Genetics Group, KMUTT</p>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <div class="wrap tabrow">
+    <button class="tab active" data-tab="context">Research Context</button>
+    <button class="tab" data-tab="overview">Database Overview</button>
+    <button class="tab" data-tab="taxonomy">Taxonomy Explorer</button>
+    <button class="tab" data-tab="search">Species Search</button>
+    <button class="tab" data-tab="compare">Primer Comparison</button>
+    <button class="tab" data-tab="composition">Taxonomic Composition</button>
+    <button class="tab" data-tab="features">Feature Explorer</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ================= TAB 1 : RESEARCH CONTEXT ================= -->
+<section class="panel active" id="panel-context">
+
+  <div class="card hero">
+    <div class="label">Project</div>
+    <h2>DNA Metabarcoding-based diet diversity and niche differences of three otter species in Thailand</h2>
+
+    <div class="metagrid">
+      <div><div class="label">Research Group</div><div class="val">Conservation Genetics Group</div></div>
+      <div><div class="label">Program</div><div class="val">Conservation Ecology Program (CEG)</div></div>
+      <div><div class="label">Institution</div><div class="val">King Mongkut's University of Technology Thonburi (KMUTT)</div></div>
+    </div>
+
+    <p class="lead">
+      These curated databases were developed to support DNA metabarcoding analyses by providing
+      taxonomically annotated reference sequences associated with individual metabarcoding primer regions.
+      This website is an interactive viewer for exploring their content.
+    </p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Database Workflow</h3>
+      <div class="flow">
+        <div class="flow-step">Reference Sequences</div>
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-step">Taxonomic Curation</div>
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-step">Primer-specific Database</div>
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-step">Curated Reference Database</div>
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-step accent">Interactive Explorer</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Interpretation</h3>
+      <p><strong>&ldquo;Reference sequence present&rdquo;</strong> means only:</p>
+      <blockquote>A corresponding reference sequence is present in the curated database.</blockquote>
+      <p>It does <strong>not</strong> mean:</p>
+      <ul class="nolist">
+        <li>&times; The species will be amplified by the primer.</li>
+        <li>&times; The species was detected in samples.</li>
+        <li>&times; The species occurs at the study site.</li>
+        <li>&times; The species contributed to otter diet.</li>
+        <li>&times; The primer is specific to that species.</li>
+      </ul>
+      <div class="note">
+        The number of reference sequences must not be interpreted as ecological abundance.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Available Databases</h3>
+    <p class="muted small">Summary statistics are computed from the actual files. Load a database to fill its row &mdash; large files may take a moment.</p>
+    <div class="tablewrap">
+      <table class="tbl" id="summary-table">
+        <thead><tr>
+          <th>Primer</th><th class="r">Features</th><th class="r">Classes</th><th class="r">Orders</th>
+          <th class="r">Families</th><th class="r">Genera</th><th class="r">Species</th><th></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn" id="load-all">Load all databases</button>
+      <span class="muted small">Databases stay cached for this browser session.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TAB 2 : OVERVIEW ================= -->
+<section class="panel" id="panel-overview">
+  <div class="card selectorbar">
+    <label for="sel-overview">Primer</label>
+    <select id="sel-overview" class="primer-select"></select>
+    <span class="status" id="status-overview"></span>
+  </div>
+
+  <div class="statgrid" id="ov-stats"></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Database File</h3>
+      <table class="tbl kv" id="ov-file"></table>
+    </div>
+    <div class="card">
+      <h3>Taxonomic Summary</h3>
+      <div class="chartbox"><canvas id="ov-chart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Data Quality</h3>
+    <div class="tablewrap"><table class="tbl kv" id="ov-quality"></table></div>
+  </div>
+</section>
+
+<!-- ================= TAB 3 : TAXONOMY EXPLORER ================= -->
+<section class="panel" id="panel-taxonomy">
+  <div class="card selectorbar">
+    <label for="sel-taxonomy">Primer</label>
+    <select id="sel-taxonomy" class="primer-select"></select>
+    <input type="search" id="tax-filter" class="input" placeholder="Filter taxa by name…">
+    <span class="status" id="status-taxonomy"></span>
+  </div>
+  <div class="card">
+    <h3>Class &rarr; Order &rarr; Family &rarr; Genus &rarr; Species</h3>
+    <p class="muted small">Click a taxon to expand. Numbers show feature counts.</p>
+    <div id="tax-tree" class="tree"></div>
+  </div>
+</section>
+
+<!-- ================= TAB 4 : SPECIES SEARCH ================= -->
+<section class="panel" id="panel-search">
+  <div class="card selectorbar">
+    <label for="sel-search">Primer</label>
+    <select id="sel-search" class="primer-select"></select>
+    <span class="status" id="status-search"></span>
+  </div>
+  <div class="card">
+    <h3>Search species</h3>
+    <input type="search" id="sp-query" class="input big" placeholder="e.g. Drosophila melanogaster, or just Drosophila">
+    <p class="muted small">Case-insensitive. Partial, genus-only, or species-only terms are supported.</p>
+    <div id="sp-results"></div>
+  </div>
+</section>
+
+<!-- ================= TAB 5 : PRIMER COMPARISON ================= -->
+<section class="panel" id="panel-compare">
+  <div class="card">
+    <h3>Reference database presence</h3>
+    <p class="muted small">Checks whether a canonical <em>Genus&nbsp;+&nbsp;species</em> identity has a reference sequence in each curated database. This is not primer detection.</p>
+    <div class="row">
+      <input type="search" id="cmp-query" class="input big" placeholder="e.g. Drosophila melanogaster">
+      <button class="btn primary" id="cmp-go">Compare</button>
+    </div>
+    <div id="cmp-status" class="status"></div>
+    <div id="cmp-results"></div>
+  </div>
+</section>
+
+<!-- ================= TAB 6 : COMPOSITION ================= -->
+<section class="panel" id="panel-composition">
+  <div class="card selectorbar">
+    <label for="sel-composition">Primer</label>
+    <select id="sel-composition" class="primer-select"></select>
+    <label for="comp-rank">Rank</label>
+    <select id="comp-rank" class="input">
+      <option value="class">Class</option>
+      <option value="order">Order</option>
+      <option value="family">Family</option>
+      <option value="genus">Genus</option>
+      <option value="species">Species</option>
+    </select>
+    <span class="status" id="status-composition"></span>
+  </div>
+  <div class="card">
+    <h3>Reference database composition</h3>
+    <div class="note small">This shows the composition of the curated reference database. It is not ecological abundance.</div>
+    <div id="comp-meta" class="muted small"></div>
+    <div class="chartbox tall"><canvas id="comp-chart"></canvas></div>
+    <div class="tablewrap">
+      <table class="tbl" id="comp-table">
+        <thead><tr><th>Taxon</th><th class="r">Features</th><th class="r">Percentage</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TAB 7 : FEATURE EXPLORER ================= -->
+<section class="panel" id="panel-features">
+  <div class="card selectorbar">
+    <label for="sel-features">Primer</label>
+    <select id="sel-features" class="primer-select"></select>
+    <input type="search" id="ft-query" class="input" placeholder="Search feature ID or taxonomy…">
+    <select id="ft-rank" class="input">
+      <option value="">Filter rank…</option>
+      <option value="class">Class</option>
+      <option value="order">Order</option>
+      <option value="family">Family</option>
+      <option value="genus">Genus</option>
+      <option value="species">Species</option>
+    </select>
+    <input type="search" id="ft-rankval" class="input" placeholder="Value">
+    <span class="status" id="status-features"></span>
+  </div>
+
+  <div class="card">
+    <div class="row spread">
+      <div id="ft-count" class="muted small"></div>
+      <div class="row">
+        <button class="btn" id="ft-tsv">Export TSV</button>
+        <button class="btn" id="ft-csv">Export CSV</button>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table class="tbl sortable" id="ft-table">
+        <thead><tr>
+          <th data-sort="id">Feature ID</th>
+          <th data-sort="class">Class</th>
+          <th data-sort="order">Order</th>
+          <th data-sort="family">Family</th>
+          <th data-sort="genus">Genus</th>
+          <th data-sort="species">Species</th>
+          <th></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="pager">
+      <button class="btn" id="ft-prev">&larr; Prev</button>
+      <span id="ft-page" class="muted small"></span>
+      <button class="btn" id="ft-next">Next &rarr;</button>
+      <select id="ft-size" class="input">
+        <option>50</option><option selected>100</option><option>250</option><option>500</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Curated reference databases &bull; Conservation Genetics Group, Conservation Ecology Program (CEG), KMUTT.
+    Database presence indicates only that a reference sequence exists; it does not imply amplification, detection, occurrence, or dietary contribution.</p>
+  </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
