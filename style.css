@@ -24,8 +24,8 @@ body{
 
 /* header */
 .site-header{
-  background:hsl(199, 100%, 84%);
-  color:#fff;
+  background:#a3daff !important;
+  color:#000000;
   padding:22px 0 20px;
 }
 
@@ -65,7 +65,6 @@ body{
 .header-logos img{
   width:auto;
   object-fit:contain;
-  
 }
 
 /* Individual logo sizes */
